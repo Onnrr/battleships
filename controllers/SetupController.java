@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -84,6 +85,41 @@ public class SetupController implements SceneInitialise {
                 button.setOnMouseClicked(e -> {
                     handleClick(e);
                 });
+                button.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                        new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent e) {
+                                if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
+                                    int start = ((Cell) e.getSource()).getColumn();
+                                    for (int i = start; i < start + length; i++) {
+                                        buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().add("hovered");
+                                    }
+                                } else {
+                                    int start = ((Cell) e.getSource()).getRow();
+                                    for (int i = start; i < start + length; i++) {
+                                        buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().add("hovered");
+                                    }
+                                }
+                            }
+                        });
+                button.addEventHandler(MouseEvent.MOUSE_EXITED,
+                        new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent e) {
+                                if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
+                                    int start = ((Cell) e.getSource()).getColumn();
+                                    for (int i = start; i < start + length; i++) {
+                                        buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
+                                    }
+                                } else {
+                                    int start = ((Cell) e.getSource()).getRow();
+                                    for (int i = start; i < start + length; i++) {
+                                        buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass()
+                                                .remove("hovered");
+                                    }
+                                }
+                            }
+                        });
                 table.add(button, x, y);
                 buttons[x][y] = button;
             }
@@ -107,9 +143,16 @@ public class SetupController implements SceneInitialise {
     }
 
     private void handleClick(MouseEvent e) {
-        int start = ((Cell) e.getSource()).getRow();
-        for (int i = start; i < start + length; i++) {
-            buttons[i][((Cell) e.getSource()).getColumn()].setDisable(true);
+        if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
+            int start = ((Cell) e.getSource()).getColumn();
+            for (int i = start; i < start + length; i++) {
+                buttons[((Cell) e.getSource()).getRow()][i].setDisable(true);
+            }
+        } else {
+            int start = ((Cell) e.getSource()).getRow();
+            for (int i = start; i < start + length; i++) {
+                buttons[i][((Cell) e.getSource()).getColumn()].setDisable(true);
+            }
         }
 
     }
