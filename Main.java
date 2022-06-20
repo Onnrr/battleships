@@ -1,4 +1,6 @@
 import com.sun.javafx.application.HostServicesDelegate;
+
+import controllers.StartController;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +19,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Player player = new Player(false);
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("views/gamePlay.fxml"));
+        loader.setLocation(getClass().getResource("views/start.fxml"));
         loader.load();
 
-        SceneInitialise c2 = loader.getController();
-        c2.initData(player);
+        StartController c = loader.getController();
+        c.initData();
 
         Parent p = loader.getRoot();
         Scene scene = new Scene(p);
@@ -32,7 +33,7 @@ public class Main extends Application {
         primaryStage.setFullScreen(false);
         primaryStage.setHeight(700);
         primaryStage.setWidth(1100);
-        primaryStage.setResizable(false);
+        // primaryStage.setResizable(false);
         primaryStage.show();
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         System.out.println(screenBounds);

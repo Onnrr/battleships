@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 import models.Player;
 import models.SceneInitialise;
 
-public class gamePlayController implements SceneInitialise {
+public class GamePlayController implements SceneInitialise {
     final int TABLE_SIZE = 10;
 
     @FXML
