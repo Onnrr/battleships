@@ -1,14 +1,9 @@
 package controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
