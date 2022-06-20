@@ -44,7 +44,7 @@ public class SetupController implements SceneInitialise {
     @Override
     public void initData(Player p) {
 
-        shipBox.getItems().addAll("1 Block", "1 Block", "1 Block", "1 Block", "2 Blocks", "2 Blocks", "2 Blocks",
+        shipBox.getItems().addAll("1 Block", "1 Block", "1 Block", "2 Blocks", "2 Blocks", "2 Blocks",
                 "3 Blocks", "3 Blocks", "5 Blocks");
         directionBox.getItems().addAll("Vertical", "Horizontal");
 
@@ -146,6 +146,26 @@ public class SetupController implements SceneInitialise {
             }
         }
 
+        shipBox.getItems().remove(shipBox.getSelectionModel().getSelectedItem());
+        if (shipBox.getItems().isEmpty()) {
+            shipBox.setDisable(true);
+        } else {
+            shipBox.getSelectionModel().selectFirst();
+            File file;
+            if (shipBox.getSelectionModel().getSelectedItem().equals("1 Block")) {
+                file = new File("images/1Block.jpg");
+            } else if (shipBox.getSelectionModel().getSelectedItem().equals("2 Blocks")) {
+                file = new File("images/2Block.jpg");
+            } else if (shipBox.getSelectionModel().getSelectedItem().equals("3 Blocks")) {
+                file = new File("images/3Block.jpg");
+            } else {
+                file = new File("images/5Block.jpg");
+            }
+            length = Character.getNumericValue(shipBox.getSelectionModel().getSelectedItem().charAt(0));
+            Image img = new Image(file.toURI().toString());
+            image.setImage(img);
+        }
+
     }
 
     private boolean setHoverEffect(MouseEvent e) {
@@ -238,6 +258,7 @@ public class SetupController implements SceneInitialise {
 
     public void reset(ActionEvent e) {
         shipBox.getItems().clear();
+        shipBox.setDisable(false);
         directionBox.getItems().clear();
         initData(player);
     }
