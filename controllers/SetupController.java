@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import models.AppManager;
 import models.Cell;
 import models.Player;
 import models.SceneInitialise;
@@ -23,6 +25,7 @@ public class SetupController implements SceneInitialise {
     int length;
     boolean isVertical;
     Cell[][] buttons;
+    Player player;
 
     @FXML
     GridPane background;
@@ -40,6 +43,7 @@ public class SetupController implements SceneInitialise {
 
     @Override
     public void initData(Player p) {
+
         shipBox.getItems().addAll("1 Block", "1 Block", "1 Block", "1 Block", "2 Blocks", "2 Blocks", "2 Blocks",
                 "3 Blocks", "3 Blocks", "5 Blocks");
         directionBox.getItems().addAll("Vertical", "Horizontal");
@@ -57,6 +61,7 @@ public class SetupController implements SceneInitialise {
         buttons = new Cell[TABLE_SIZE][TABLE_SIZE];
 
         setUpGrid(p);
+        player = p;
     }
 
     public void setUpGrid(Player p) {
@@ -80,24 +85,19 @@ public class SetupController implements SceneInitialise {
                 Cell button = new Cell(x, y);
                 button.setMaxWidth(Double.MAX_VALUE);
                 button.setMaxHeight(Double.MAX_VALUE);
-                // button.getStylesheets().add(getClass().getResource("button.css").toExternalForm());
-                // button.getStyleClass().add("gridButton");
+
                 button.setOnMouseClicked(e -> {
                     handleClick(e);
                 });
 
                 button.setOnMouseEntered((event) -> {
-                    try {
-                        setHoverEffect(event);
-                    } catch (Exception e1) {
+                    if (!setHoverEffect(event)) {
                         disabledHoverEffect(event);
                     }
                 });
 
                 button.setOnMouseExited((event) -> {
-                    try {
-                        removeHoverEffect(event);
-                    } catch (Exception e1) {
+                    if (!removeHoverEffect(event)) {
                         removeDisabledHoverEffect(event);
                     }
                 });
@@ -106,6 +106,7 @@ public class SetupController implements SceneInitialise {
                 buttons[x][y] = button;
             }
         }
+
     }
 
     public void shipSelect(ActionEvent e) {
@@ -128,46 +129,71 @@ public class SetupController implements SceneInitialise {
         if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
             int start = ((Cell) e.getSource()).getColumn();
             for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE) {
+                    break;
+                }
                 buttons[((Cell) e.getSource()).getRow()][i].setDisable(true);
+                buttons[((Cell) e.getSource()).getRow()][i].setOccupied(true);
             }
         } else {
             int start = ((Cell) e.getSource()).getRow();
             for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE) {
+                    break;
+                }
                 buttons[i][((Cell) e.getSource()).getColumn()].setDisable(true);
+                buttons[i][((Cell) e.getSource()).getColumn()].setOccupied(true);
             }
         }
 
     }
 
-    private void setHoverEffect(MouseEvent e) throws Exception {
+    private boolean setHoverEffect(MouseEvent e) {
         if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
             int start = ((Cell) e.getSource()).getColumn();
             for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE || buttons[((Cell) e.getSource()).getRow()][i].isOccupied()) {
+                    return false;
+                }
                 buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().add("hovered");
             }
         } else {
             int start = ((Cell) e.getSource()).getRow();
             for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE || buttons[i][((Cell) e.getSource()).getColumn()].isOccupied()) {
+                    return false;
+                }
                 buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().add("hovered");
             }
         }
+        return true;
     }
 
-    private void removeHoverEffect(MouseEvent e) throws Exception {
+    private boolean removeHoverEffect(MouseEvent e) {
         if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
             int start = ((Cell) e.getSource()).getColumn();
             for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE) {
+                    return false;
+                }
                 buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("outOfBounds");
             }
         } else {
             int start = ((Cell) e.getSource()).getRow();
             for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE) {
+                    return false;
+                }
                 buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().remove("hovered");
+                buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().remove("outOfBounds");
             }
         }
+        return true;
     }
 
     private void disabledHoverEffect(MouseEvent e) {
+        System.out.println("add");
         ((Button) e.getSource()).setDisable(true);
         if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
             int start = ((Cell) e.getSource()).getColumn();
@@ -189,6 +215,7 @@ public class SetupController implements SceneInitialise {
     }
 
     private void removeDisabledHoverEffect(MouseEvent e) {
+        System.out.println("remove");
         ((Button) e.getSource()).setDisable(false);
         if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
             int start = ((Cell) e.getSource()).getColumn();
@@ -207,5 +234,26 @@ public class SetupController implements SceneInitialise {
                 buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().remove("outOfBounds");
             }
         }
+    }
+
+    public void reset(ActionEvent e) {
+        shipBox.getItems().clear();
+        directionBox.getItems().clear();
+        initData(player);
+    }
+
+    public void ready(ActionEvent e) throws IOException {
+        for (int x = 0; x < TABLE_SIZE; x++) {
+            for (int y = 0; y < TABLE_SIZE; y++) {
+                if (buttons[y][x].isOccupied()) {
+                    System.out.println("aaaa");
+                    player.getMyTable()[y][x] = 1;
+                } else {
+                    player.getMyTable()[y][x] = 0;
+                }
+            }
+        }
+
+        AppManager.changeScene(getClass().getResource("/views/gamePlay.fxml"), e, player);
     }
 }

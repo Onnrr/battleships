@@ -84,8 +84,7 @@ public class GamePlayController implements SceneInitialise {
                 Button button = new Button();
                 button.setMaxWidth(Double.MAX_VALUE);
                 button.setMaxHeight(Double.MAX_VALUE);
-                // button.getStylesheets().add(getClass().getResource("button.css").toExternalForm());
-                // button.getStyleClass().add("gridButton");
+
                 button.setOnMouseClicked(e -> {
                     handleClick(e);
                 });
@@ -95,14 +94,12 @@ public class GamePlayController implements SceneInitialise {
                 b.setMaxWidth(Double.MAX_VALUE);
                 b.setMaxHeight(Double.MAX_VALUE);
                 b.setDisable(true);
-                b.setMaxWidth(Double.MAX_VALUE);
-                b.setMaxHeight(Double.MAX_VALUE);
-                if (p.getMyTable()[x][y] == 0) {
 
-                } else if (p.getMyTable()[x][y] == 1) {
-
+                if (p.getMyTable()[y][x] == 1) {
+                    System.out.println("okokok");
+                    b.getStyleClass().add("occupied");
                 }
-                myTable.add(b, x, y);
+                myTable.add(b, y, x);
 
             }
         }
