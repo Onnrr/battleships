@@ -85,41 +85,23 @@ public class SetupController implements SceneInitialise {
                 button.setOnMouseClicked(e -> {
                     handleClick(e);
                 });
-                button.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                        new EventHandler<MouseEvent>() {
-                            @Override
-                            public void handle(MouseEvent e) {
-                                if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
-                                    int start = ((Cell) e.getSource()).getColumn();
-                                    for (int i = start; i < start + length; i++) {
-                                        buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().add("hovered");
-                                    }
-                                } else {
-                                    int start = ((Cell) e.getSource()).getRow();
-                                    for (int i = start; i < start + length; i++) {
-                                        buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().add("hovered");
-                                    }
-                                }
-                            }
-                        });
-                button.addEventHandler(MouseEvent.MOUSE_EXITED,
-                        new EventHandler<MouseEvent>() {
-                            @Override
-                            public void handle(MouseEvent e) {
-                                if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
-                                    int start = ((Cell) e.getSource()).getColumn();
-                                    for (int i = start; i < start + length; i++) {
-                                        buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
-                                    }
-                                } else {
-                                    int start = ((Cell) e.getSource()).getRow();
-                                    for (int i = start; i < start + length; i++) {
-                                        buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass()
-                                                .remove("hovered");
-                                    }
-                                }
-                            }
-                        });
+
+                button.setOnMouseEntered((event) -> {
+                    try {
+                        setHoverEffect(event);
+                    } catch (Exception e1) {
+                        disabledHoverEffect(event);
+                    }
+                });
+
+                button.setOnMouseExited((event) -> {
+                    try {
+                        removeHoverEffect(event);
+                    } catch (Exception e1) {
+                        removeDisabledHoverEffect(event);
+                    }
+                });
+
                 table.add(button, x, y);
                 buttons[x][y] = button;
             }
@@ -155,5 +137,75 @@ public class SetupController implements SceneInitialise {
             }
         }
 
+    }
+
+    private void setHoverEffect(MouseEvent e) throws Exception {
+        if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
+            int start = ((Cell) e.getSource()).getColumn();
+            for (int i = start; i < start + length; i++) {
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().add("hovered");
+            }
+        } else {
+            int start = ((Cell) e.getSource()).getRow();
+            for (int i = start; i < start + length; i++) {
+                buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().add("hovered");
+            }
+        }
+    }
+
+    private void removeHoverEffect(MouseEvent e) throws Exception {
+        if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
+            int start = ((Cell) e.getSource()).getColumn();
+            for (int i = start; i < start + length; i++) {
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
+            }
+        } else {
+            int start = ((Cell) e.getSource()).getRow();
+            for (int i = start; i < start + length; i++) {
+                buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().remove("hovered");
+            }
+        }
+    }
+
+    private void disabledHoverEffect(MouseEvent e) {
+        ((Button) e.getSource()).setDisable(true);
+        if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
+            int start = ((Cell) e.getSource()).getColumn();
+            for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE) {
+                    break;
+                }
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().add("outOfBounds");
+            }
+        } else {
+            int start = ((Cell) e.getSource()).getRow();
+            for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE) {
+                    break;
+                }
+                buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().add("outOfBounds");
+            }
+        }
+    }
+
+    private void removeDisabledHoverEffect(MouseEvent e) {
+        ((Button) e.getSource()).setDisable(false);
+        if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
+            int start = ((Cell) e.getSource()).getColumn();
+            for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE) {
+                    break;
+                }
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("outOfBounds");
+            }
+        } else {
+            int start = ((Cell) e.getSource()).getRow();
+            for (int i = start; i < start + length; i++) {
+                if (i >= TABLE_SIZE) {
+                    break;
+                }
+                buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().remove("outOfBounds");
+            }
+        }
     }
 }

@@ -5,3 +5,7 @@
 .hovered {
     -fx-background-color: rgb(19, 170, 17);
 }
+
+.outOfBounds {
+    -fx-background-color: red;
+}
