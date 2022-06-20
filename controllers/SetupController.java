@@ -4,6 +4,7 @@ import java.io.File;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -12,11 +13,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import models.Cell;
 import models.Player;
 import models.SceneInitialise;
 
 public class SetupController implements SceneInitialise {
     final int TABLE_SIZE = 10;
+    int length;
+    boolean isVertical;
+    Cell[][] buttons;
 
     @FXML
     GridPane background;
@@ -41,9 +46,14 @@ public class SetupController implements SceneInitialise {
         shipBox.getSelectionModel().selectFirst();
         directionBox.getSelectionModel().selectFirst();
 
+        isVertical = true;
+        length = 1;
+
         File file = new File("images/1Block.jpg");
         Image img = new Image(file.toURI().toString());
         image.setImage(img);
+
+        buttons = new Cell[TABLE_SIZE][TABLE_SIZE];
 
         setUpGrid(p);
     }
@@ -66,7 +76,7 @@ public class SetupController implements SceneInitialise {
 
         for (int x = 0; x < TABLE_SIZE; x++) {
             for (int y = 0; y < TABLE_SIZE; y++) {
-                Button button = new Button();
+                Cell button = new Cell(x, y);
                 button.setMaxWidth(Double.MAX_VALUE);
                 button.setMaxHeight(Double.MAX_VALUE);
                 // button.getStylesheets().add(getClass().getResource("button.css").toExternalForm());
@@ -75,16 +85,7 @@ public class SetupController implements SceneInitialise {
                     handleClick(e);
                 });
                 table.add(button, x, y);
-
-                Button b = new Button();
-                b.setMaxWidth(Double.MAX_VALUE);
-                b.setMaxHeight(Double.MAX_VALUE);
-                b.setDisable(true);
-                b.setMaxWidth(Double.MAX_VALUE);
-                b.setMaxHeight(Double.MAX_VALUE);
-
-                table.add(b, x, y);
-
+                buttons[x][y] = button;
             }
         }
     }
@@ -100,10 +101,16 @@ public class SetupController implements SceneInitialise {
         } else {
             file = new File("images/5Block.jpg");
         }
+        length = Character.getNumericValue(shipBox.getSelectionModel().getSelectedItem().charAt(0));
         Image img = new Image(file.toURI().toString());
         image.setImage(img);
     }
 
     private void handleClick(MouseEvent e) {
+        int start = ((Cell) e.getSource()).getRow();
+        for (int i = start; i < start + length; i++) {
+            buttons[i][((Cell) e.getSource()).getColumn()].setDisable(true);
+        }
+
     }
 }
