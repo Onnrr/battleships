@@ -58,6 +58,6 @@
             <AnchorPane fx:id="anchor2" prefHeight="396.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <AnchorPane fx:id="anchor" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+      <AnchorPane fx:id="anchor" prefHeight="200.0" prefWidth="200.0" styleClass="background" stylesheets="@../stylesheets/style.css" GridPane.rowIndex="1" />
    </children>
 </GridPane>

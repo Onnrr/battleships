@@ -35,8 +35,6 @@ public class Main extends Application {
         primaryStage.setWidth(1100);
         // primaryStage.setResizable(false);
         primaryStage.show();
-        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-        System.out.println(screenBounds);
     }
 
     public static void main(String[] args) {

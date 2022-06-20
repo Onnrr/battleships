@@ -1,8 +1,13 @@
 package controllers;
 
+import java.io.File;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -22,15 +27,24 @@ public class SetupController implements SceneInitialise {
     @FXML
     ComboBox<String> directionBox;
 
+    @FXML
+    ImageView image;
+
     GridPane table;
 
     @Override
     public void initData(Player p) {
-        shipBox.getItems().addAll("2 Block", "3 Block", "4 Block", "5 Block", "5 Block");
+        shipBox.getItems().addAll("1 Block", "1 Block", "1 Block", "1 Block", "2 Blocks", "2 Blocks", "2 Blocks",
+                "3 Blocks", "3 Blocks", "5 Blocks");
         directionBox.getItems().addAll("Vertical", "Horizontal");
 
         shipBox.getSelectionModel().selectFirst();
         directionBox.getSelectionModel().selectFirst();
+
+        File file = new File("images/1Block.jpg");
+        Image img = new Image(file.toURI().toString());
+        image.setImage(img);
+
         setUpGrid(p);
     }
 
@@ -73,6 +87,21 @@ public class SetupController implements SceneInitialise {
 
             }
         }
+    }
+
+    public void shipSelect(ActionEvent e) {
+        File file;
+        if (shipBox.getSelectionModel().getSelectedItem().equals("1 Block")) {
+            file = new File("images/1Block.jpg");
+        } else if (shipBox.getSelectionModel().getSelectedItem().equals("2 Blocks")) {
+            file = new File("images/2Block.jpg");
+        } else if (shipBox.getSelectionModel().getSelectedItem().equals("3 Blocks")) {
+            file = new File("images/3Block.jpg");
+        } else {
+            file = new File("images/5Block.jpg");
+        }
+        Image img = new Image(file.toURI().toString());
+        image.setImage(img);
     }
 
     private void handleClick(MouseEvent e) {

@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="controllers.SetupController">
+<GridPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="background" stylesheets="@../stylesheets/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="controllers.SetupController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.60003662109375" minWidth="10.0" prefWidth="25.600006103515625" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="783.9999145507812" minWidth="10.0" prefWidth="538.6666625976562" />
@@ -44,9 +44,9 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <ComboBox fx:id="shipBox" layoutX="43.0" layoutY="90.0" prefHeight="45.0" prefWidth="220.0" />
+            <ComboBox fx:id="shipBox" layoutX="43.0" layoutY="90.0" onAction="#shipSelect" prefHeight="45.0" prefWidth="220.0" />
             <ComboBox fx:id="directionBox" layoutX="40.0" layoutY="193.0" prefHeight="45.0" prefWidth="220.0" />
-            <ImageView fitHeight="193.0" fitWidth="248.0" layoutX="94.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="image" fitHeight="193.0" fitWidth="248.0" layoutX="94.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </children>
