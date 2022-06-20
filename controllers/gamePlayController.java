@@ -96,7 +96,6 @@ public class GamePlayController implements SceneInitialise {
                 b.setDisable(true);
 
                 if (p.getMyTable()[y][x] == 1) {
-                    System.out.println("okokok");
                     b.getStyleClass().add("occupied");
                 }
                 myTable.add(b, y, x);

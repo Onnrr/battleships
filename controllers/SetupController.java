@@ -31,6 +31,9 @@ public class SetupController implements SceneInitialise {
     GridPane background;
 
     @FXML
+    Button readyButton;
+
+    @FXML
     ComboBox<String> shipBox;
 
     @FXML
@@ -59,6 +62,7 @@ public class SetupController implements SceneInitialise {
         image.setImage(img);
 
         buttons = new Cell[TABLE_SIZE][TABLE_SIZE];
+        readyButton.setDisable(true);
 
         setUpGrid(p);
         player = p;
@@ -111,6 +115,9 @@ public class SetupController implements SceneInitialise {
 
     public void shipSelect(ActionEvent e) {
         File file;
+        if (shipBox.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
         if (shipBox.getSelectionModel().getSelectedItem().equals("1 Block")) {
             file = new File("images/1Block.jpg");
         } else if (shipBox.getSelectionModel().getSelectedItem().equals("2 Blocks")) {
@@ -134,6 +141,9 @@ public class SetupController implements SceneInitialise {
                 }
                 buttons[((Cell) e.getSource()).getRow()][i].setDisable(true);
                 buttons[((Cell) e.getSource()).getRow()][i].setOccupied(true);
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("outOfBounds");
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().add("occupied");
             }
         } else {
             int start = ((Cell) e.getSource()).getRow();
@@ -143,12 +153,17 @@ public class SetupController implements SceneInitialise {
                 }
                 buttons[i][((Cell) e.getSource()).getColumn()].setDisable(true);
                 buttons[i][((Cell) e.getSource()).getColumn()].setOccupied(true);
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
+                buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("outOfBounds");
+                buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().add("occupied");
             }
         }
 
         shipBox.getItems().remove(shipBox.getSelectionModel().getSelectedItem());
         if (shipBox.getItems().isEmpty()) {
             shipBox.setDisable(true);
+            readyButton.setDisable(false);
+            length = 0;
         } else {
             shipBox.getSelectionModel().selectFirst();
             File file;
@@ -267,7 +282,6 @@ public class SetupController implements SceneInitialise {
         for (int x = 0; x < TABLE_SIZE; x++) {
             for (int y = 0; y < TABLE_SIZE; y++) {
                 if (buttons[y][x].isOccupied()) {
-                    System.out.println("aaaa");
                     player.getMyTable()[y][x] = 1;
                 } else {
                     player.getMyTable()[y][x] = 0;
