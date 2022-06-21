@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.layout.GridPane;
 
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
+import models.AppManager;
 import models.Cell;
 import models.Player;
 import models.SceneInitialise;
@@ -28,6 +30,12 @@ public class GamePlayController implements SceneInitialise {
 
     @FXML
     AnchorPane anchor2;
+
+    @FXML
+    AnchorPane winPane;
+
+    @FXML
+    AnchorPane losePane;
 
     @FXML
     Text turnText;
@@ -47,6 +55,11 @@ public class GamePlayController implements SceneInitialise {
     Player player;
 
     public void initData(Player p) {
+        winPane.setVisible(false);
+        winPane.setDisable(true);
+
+        losePane.setVisible(false);
+        losePane.setDisable(true);
 
         remShipsText.setText("Remaining Ships : " + p.getRemaining());
         oppShipsText.setText("Opponent's remaining ships : " + p.getOppRemaining());
@@ -147,6 +160,12 @@ public class GamePlayController implements SceneInitialise {
             ((Cell) e.getSource()).getStyleClass().add("hit");
             player.incrementCorrectGuess();
             oppShipsText.setText("Opponent's remaining ships : " + player.getOppRemaining());
+            if (player.getOppRemaining() == 0) {
+                winPane.setVisible(true);
+                winPane.setDisable(false);
+                darkPane.setVisible(true);
+                darkPane.setDisable(false);
+            }
 
         } else if (result.equals("MISS")) {
             ((Cell) e.getSource()).setDisable(true);
@@ -166,6 +185,10 @@ public class GamePlayController implements SceneInitialise {
 
     public void setTurnText(String string) {
         turnText.setText(string);
+    }
+
+    public void exit(ActionEvent e) throws IOException {
+        AppManager.changeScene(getClass().getResource("/views/gamePlay.fxml"), e, player);
     }
 
 }
