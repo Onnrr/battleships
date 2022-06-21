@@ -21,12 +21,13 @@ public class WaitOpponent implements Runnable {
         int row = Character.getNumericValue(guess.charAt(0));
         int column = Character.getNumericValue(guess.charAt(1));
 
-        if (player.hit(row, column)) {
+        if (player.hit(column, row)) {
             player.sendMessage("HIT");
 
         } else {
             player.sendMessage("MISS");
         }
+
     }
 
     public void start() {

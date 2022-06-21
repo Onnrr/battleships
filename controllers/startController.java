@@ -55,7 +55,6 @@ public class StartController implements SceneInitialise {
                 System.out.println("client connected");
                 AppManager.changeScene(getClass().getResource("/views/setup.fxml"), e, p);
             } catch (IOException IOE) {
-
                 System.out.println("error");
             }
         } else {
@@ -81,6 +80,7 @@ public class StartController implements SceneInitialise {
             hostBox.setSelected(true);
             joinBox.setSelected(false);
             codeField.setDisable(true);
+            codeField.setText("");
         } else {
             hostBox.setSelected(false);
             joinBox.setSelected(true);

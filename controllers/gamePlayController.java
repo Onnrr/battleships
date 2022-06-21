@@ -52,7 +52,9 @@ public class GamePlayController implements SceneInitialise {
         oppShipsText.setText("Opponent's remaining ships : " + p.getOppRemaining());
         buttons = new Cell[TABLE_SIZE][TABLE_SIZE];
         setUpGrid(p);
-        if (!player.isHost()) {
+        if (!p.isHost()) {
+            System.out.println("I AM NOT HOST");
+            turnText.setText("Opponent's Turn");
             try {
                 opponentsTurn();
             } catch (IOException e) {
@@ -60,6 +62,7 @@ public class GamePlayController implements SceneInitialise {
                 e.printStackTrace();
             }
         } else {
+
             turnText.setText("Your Turn");
             darkPane.setDisable(true);
             darkPane.setVisible(false);
@@ -153,7 +156,6 @@ public class GamePlayController implements SceneInitialise {
     }
 
     public void opponentsTurn() throws IOException {
-        turnText.setText("Opponent's Turn");
         darkPane.setDisable(false);
         darkPane.setVisible(true);
         WaitOpponent wait = new WaitOpponent(player);
@@ -161,6 +163,11 @@ public class GamePlayController implements SceneInitialise {
 
         darkPane.setDisable(true);
         darkPane.setVisible(false);
-        turnText.setText("Your Turn");
     }
+
+    public void setTurnText(String string) {
+        turnText.setText(string);
+    }
+
+    
 }
