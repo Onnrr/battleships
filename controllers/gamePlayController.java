@@ -53,7 +53,6 @@ public class GamePlayController implements SceneInitialise {
         buttons = new Cell[TABLE_SIZE][TABLE_SIZE];
         setUpGrid(p);
         if (!p.isHost()) {
-            System.out.println("I AM NOT HOST");
             darkPane.setVisible(true);
             darkPane.setDisable(false);
             turnText.setText("Opponent's Turn");
@@ -144,14 +143,12 @@ public class GamePlayController implements SceneInitialise {
         String result = player.getMesssage();
 
         if (result.equals("HIT")) {
-            System.out.println("yyy");
             ((Cell) e.getSource()).setDisable(true);
             ((Cell) e.getSource()).getStyleClass().add("hit");
             player.incrementCorrectGuess();
             oppShipsText.setText("Opponent's remaining ships : " + player.getOppRemaining());
 
         } else if (result.equals("MISS")) {
-            System.out.println("nnn");
             ((Cell) e.getSource()).setDisable(true);
         }
 
