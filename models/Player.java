@@ -4,6 +4,7 @@ public class Player {
     final int TABLE_SIZE = 10;
     final int SHIPS = 20;
     final char[] LETTERS = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
+    String name;
     int[][] myTable;
     int[][] opponentTable;
     int numberOfCorrectGuesses;
@@ -18,11 +19,12 @@ public class Player {
      * 4 -> opponent's sunk ship
      */
 
-    public Player(boolean isHost) {
+    public Player(String name, boolean isHost) {
         myTable = new int[TABLE_SIZE][TABLE_SIZE];
         opponentTable = new int[TABLE_SIZE][TABLE_SIZE];
         numberOfCorrectGuesses = 0;
         remaining = SHIPS;
+        this.name = name;
     }
 
     public int getNumberOfCorrectGuesses() {
@@ -62,5 +64,9 @@ public class Player {
 
     public int getOppRemaining() {
         return SHIPS - numberOfCorrectGuesses;
+    }
+
+    public String getName() {
+        return name;
     }
 }

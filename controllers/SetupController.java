@@ -63,6 +63,11 @@ public class SetupController implements SceneInitialise {
         readyButton.setDisable(true);
 
         setUpGrid(p);
+        for (int i = 0; i < TABLE_SIZE; i++) {
+            for (int j = 0; j < TABLE_SIZE; j++) {
+                buttons[i][j].setOccupied(false);
+            }
+        }
         player = p;
     }
 
@@ -104,6 +109,8 @@ public class SetupController implements SceneInitialise {
                     }
                 });
 
+                button.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
+
                 table.add(button, x, y);
                 buttons[x][y] = button;
             }
@@ -137,6 +144,7 @@ public class SetupController implements SceneInitialise {
                 if (i >= TABLE_SIZE) {
                     break;
                 }
+                System.out.println("vertt");
                 buttons[((Cell) e.getSource()).getRow()][i].setDisable(true);
                 buttons[((Cell) e.getSource()).getRow()][i].setOccupied(true);
                 buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
