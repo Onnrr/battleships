@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <GridPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GamePlayController">
    <columnConstraints>
@@ -28,10 +28,13 @@
           <RowConstraints maxHeight="73.99997558593748" minHeight="10.0" prefHeight="36.66666259765623" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text fx:id="turnText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="turnText" text="Your Turn">
+            <Text fx:id="turnText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="turnText" text="Your Turn">
                <font>
                   <Font size="36.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
             </Text>
             <GridPane fx:id="rightGrid" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <columnConstraints>
@@ -47,19 +50,19 @@
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <Text fx:id="remShipsText" layoutX="45.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remaining Ships : 3" textAlignment="CENTER">
+                        <Text fx:id="remShipsText" fill="WHITE" layoutX="45.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remaining Ships : 3" textAlignment="CENTER">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Text>
-                        <Text fx:id="oppShipsText" layoutX="37.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opponent's Ships : 3" textAlignment="CENTER">
+                        <Text fx:id="oppShipsText" fill="WHITE" layoutX="37.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opponent's Ships : 3" textAlignment="CENTER">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Text>
                      </children>
                   </Pane>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Ships" GridPane.columnIndex="1">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Ships" GridPane.columnIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -79,15 +82,6 @@
         </rowConstraints>
          <children>
             <Pane opacity="0.25" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Text fill="WHITE" layoutX="360.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opponent's Turn">
-                     <font>
-                        <Font size="54.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
          </children>
       </GridPane>
    </children>

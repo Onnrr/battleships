@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javafx.scene.text.Text;
+
 public class Player {
     final int MAX_ID = 9999;
     final int MIN_ID = 1000;
@@ -84,6 +86,10 @@ public class Player {
         return remaining;
     }
 
+    public void decrRemaining() {
+        remaining--;
+    }
+
     public int getOppRemaining() {
         return SHIPS - numberOfCorrectGuesses;
     }
@@ -102,13 +108,14 @@ public class Player {
      * 
      * @throws IOException
      */
-    public void connect() throws IOException {
+    public void connect(Text text) throws IOException {
         System.out.println("started waiting");
         gameID = generateGameID();
 
         ss = new ServerSocket(gameID);
         Socket s = ss.accept();
         System.out.println("Client connected");
+        text.setText("Opponent Connected");
 
         input = s.getInputStream();
         reader = new BufferedReader(new InputStreamReader(input));

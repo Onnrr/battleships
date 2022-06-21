@@ -45,13 +45,18 @@ public class SetupController implements SceneInitialise {
     @FXML
     Text gameIDText;
 
+    @FXML
+    Text waitText;
+
     GridPane table;
 
     @Override
     public void initData(Player p) {
         if (p.isHost()) {
-            ServerConnect connect = new ServerConnect("server connection", p);
+            ServerConnect connect = new ServerConnect("server connection", p, waitText);
             connect.start();
+        } else {
+            waitText.setVisible(false);
         }
 
         shipBox.getItems().addAll("1 Block", "1 Block", "1 Block", "2 Blocks", "2 Blocks", "2 Blocks",

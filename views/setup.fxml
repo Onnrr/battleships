@@ -63,5 +63,13 @@
             <Font size="32.0" />
          </font>
       </Text>
+      <Text fx:id="waitText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for Opponent..." GridPane.columnIndex="2" GridPane.halignment="CENTER">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets top="40.0" />
+         </GridPane.margin>
+      </Text>
    </children>
 </GridPane>

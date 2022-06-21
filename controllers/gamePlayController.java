@@ -54,18 +54,18 @@ public class GamePlayController implements SceneInitialise {
         setUpGrid(p);
         if (!p.isHost()) {
             System.out.println("I AM NOT HOST");
+            darkPane.setVisible(true);
+            darkPane.setDisable(false);
             turnText.setText("Opponent's Turn");
             try {
                 opponentsTurn();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
-
-            turnText.setText("Your Turn");
-            darkPane.setDisable(true);
             darkPane.setVisible(false);
+            darkPane.setDisable(true);
+            turnText.setText("Your Turn");
         }
     }
 
@@ -147,6 +147,9 @@ public class GamePlayController implements SceneInitialise {
             System.out.println("yyy");
             ((Cell) e.getSource()).setDisable(true);
             ((Cell) e.getSource()).getStyleClass().add("hit");
+            player.incrementCorrectGuess();
+            oppShipsText.setText("Opponent's remaining ships : " + player.getOppRemaining());
+
         } else if (result.equals("MISS")) {
             System.out.println("nnn");
             ((Cell) e.getSource()).setDisable(true);
@@ -156,18 +159,16 @@ public class GamePlayController implements SceneInitialise {
     }
 
     public void opponentsTurn() throws IOException {
-        darkPane.setDisable(false);
+        turnText.setText("Opponent's Turn");
         darkPane.setVisible(true);
-        WaitOpponent wait = new WaitOpponent(player);
+        darkPane.setDisable(false);
+        WaitOpponent wait = new WaitOpponent(player, turnText, darkPane, remShipsText);
         wait.start();
 
-        darkPane.setDisable(true);
-        darkPane.setVisible(false);
     }
 
     public void setTurnText(String string) {
         turnText.setText(string);
     }
 
-    
 }
