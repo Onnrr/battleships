@@ -8,56 +8,87 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="background" stylesheets="@../stylesheets/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GamePlayController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="657.7333374023438" minWidth="10.0" prefWidth="657.7333374023438" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="542.5333251953125" minWidth="10.0" prefWidth="442.26666259765625" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="245.1333221435547" minHeight="10.0" prefHeight="88.6666748046875" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="560.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="73.99997558593748" minHeight="10.0" prefHeight="36.66666259765623" vgrow="SOMETIMES" />
-  </rowConstraints>
+
+<GridPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GamePlayController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-      <Text fx:id="turnText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="turnText" text="Your Turn">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <GridPane fx:id="rightGrid" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="background" stylesheets="@../stylesheets/style.css">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.93328857421875" minWidth="10.0" prefWidth="40.600046920776364" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="419.73334312438965" minWidth="10.0" prefWidth="376.5999530792236" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.5999755859375" minWidth="10.0" prefWidth="25.799951171875023" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="657.7333374023438" minWidth="10.0" prefWidth="657.7333374023438" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="542.5333251953125" minWidth="10.0" prefWidth="442.26666259765625" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="474.0666564941406" minHeight="10.0" prefHeight="116.9999755859375" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="502.3999816894531" minHeight="10.0" prefHeight="344.20002441406257" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="265.0000366210937" minHeight="10.0" prefHeight="112.13330078125" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="245.1333221435547" minHeight="10.0" prefHeight="88.6666748046875" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="560.0" minHeight="10.0" prefHeight="560.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="73.99997558593748" minHeight="10.0" prefHeight="36.66666259765623" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Text fx:id="turnText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="turnText" text="Your Turn">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <GridPane fx:id="rightGrid" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.93328857421875" minWidth="10.0" prefWidth="40.600046920776364" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="419.73334312438965" minWidth="10.0" prefWidth="376.5999530792236" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.5999755859375" minWidth="10.0" prefWidth="25.799951171875023" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="474.0666564941406" minHeight="10.0" prefHeight="116.9999755859375" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="502.3999816894531" minHeight="10.0" prefHeight="344.20002441406257" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="265.0000366210937" minHeight="10.0" prefHeight="112.13330078125" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <Text fx:id="remShipsText" layoutX="45.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remaining Ships : 3" textAlignment="CENTER">
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Text fx:id="remShipsText" layoutX="45.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remaining Ships : 3" textAlignment="CENTER">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="oppShipsText" layoutX="37.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opponent's Ships : 3" textAlignment="CENTER">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Ships" GridPane.columnIndex="1">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text fx:id="oppShipsText" layoutX="37.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opponent's Ships : 3" textAlignment="CENTER">
+                  <AnchorPane fx:id="anchor2" prefHeight="396.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <AnchorPane fx:id="anchor" prefHeight="200.0" prefWidth="200.0" styleClass="background" stylesheets="@../stylesheets/style.css" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <GridPane fx:id="darkPane">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane opacity="0.25" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Text fill="WHITE" layoutX="360.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opponent's Turn">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="54.0" />
                      </font>
                   </Text>
                </children>
-            </Pane>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Ships" GridPane.columnIndex="1">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <AnchorPane fx:id="anchor2" prefHeight="396.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            </AnchorPane>
          </children>
       </GridPane>
-      <AnchorPane fx:id="anchor" prefHeight="200.0" prefWidth="200.0" styleClass="background" stylesheets="@../stylesheets/style.css" GridPane.rowIndex="1" />
    </children>
 </GridPane>

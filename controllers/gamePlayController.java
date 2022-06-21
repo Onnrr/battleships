@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import models.Cell;
@@ -40,13 +41,16 @@ public class GamePlayController implements SceneInitialise {
     @FXML
     Text remShipsText;
 
+    @FXML
+    GridPane darkPane;
+
     GridPane opponentTable;
     GridPane myTable;
     Cell[][] buttons;
     Player player;
 
     public void initData(Player p) {
-        turnText.setText("Opponent's Turn");
+
         remShipsText.setText("Remaining Ships : " + p.getRemaining());
         oppShipsText.setText("Opponent's remaining ships : " + p.getOppRemaining());
         buttons = new Cell[TABLE_SIZE][TABLE_SIZE];
@@ -58,6 +62,10 @@ public class GamePlayController implements SceneInitialise {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        } else {
+            turnText.setText("Your Turn");
+            darkPane.setDisable(true);
+            darkPane.setVisible(false);
         }
     }
 
@@ -148,7 +156,14 @@ public class GamePlayController implements SceneInitialise {
     }
 
     public void opponentsTurn() throws IOException {
+        turnText.setText("Opponent's Turn");
+        darkPane.setDisable(false);
+        darkPane.setVisible(true);
         WaitOpponent wait = new WaitOpponent(player);
         wait.start();
+
+        darkPane.setDisable(true);
+        darkPane.setVisible(false);
+        turnText.setText("Your Turn");
     }
 }

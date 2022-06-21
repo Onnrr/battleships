@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import controllers.GamePlayController;
+
 public class Player {
     final int MAX_ID = 9999;
     final int MIN_ID = 1000;
@@ -103,19 +105,19 @@ public class Player {
      * @throws IOException
      */
     public void connect() throws IOException {
-        if (isHost) {
-            System.out.println("started waiting");
-            gameID = generateGameID();
-            ss = new ServerSocket(6868);
-            Socket s = ss.accept();
-            System.out.println("Client connected");
+        System.out.println("started waiting");
+        gameID = generateGameID();
 
-            input = s.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(input));
+        ss = new ServerSocket(gameID);
+        Socket s = ss.accept();
+        System.out.println("Client connected");
 
-            output = s.getOutputStream();
-            writer = new PrintWriter(output, true);
-        }
+        input = s.getInputStream();
+        reader = new BufferedReader(new InputStreamReader(input));
+
+        output = s.getOutputStream();
+        writer = new PrintWriter(output, true);
+
     }
 
     /**
@@ -126,7 +128,8 @@ public class Player {
      */
     public void connect(int id) throws IOException {
         ss = null;
-        s = new Socket("localhost", 6868);
+        System.out.println("bububub");
+        s = new Socket("localhost", id);
         System.out.println("I connected");
 
         input = s.getInputStream();
@@ -148,8 +151,16 @@ public class Player {
         return myTable[col][row] == 1;
     }
 
+    public int getGameID() {
+        return gameID;
+    }
+
     private int generateGameID() {
         return (int) ((Math.random() * (MAX_ID - MIN_ID)) + MIN_ID);
+    }
+
+    public void setGameID(int id) {
+        gameID = id;
     }
 
 }

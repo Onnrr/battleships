@@ -58,5 +58,10 @@
             <Font size="16.0" />
          </font>
       </Button>
+      <Text fx:id="gameIDText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Game ID = 123123" GridPane.columnIndex="1">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
    </children>
 </GridPane>

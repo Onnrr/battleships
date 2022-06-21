@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Text;
 import models.AppManager;
 import models.Cell;
 import models.Player;
@@ -41,10 +42,15 @@ public class SetupController implements SceneInitialise {
     @FXML
     ImageView image;
 
+    @FXML
+    Text gameIDText;
+
     GridPane table;
 
     @Override
     public void initData(Player p) {
+        ServerConnect connect = new ServerConnect("server connection", p);
+        connect.start();
 
         shipBox.getItems().addAll("1 Block", "1 Block", "1 Block", "2 Blocks", "2 Blocks", "2 Blocks",
                 "3 Blocks", "3 Blocks", "5 Blocks");
@@ -71,8 +77,7 @@ public class SetupController implements SceneInitialise {
         }
         player = p;
 
-        ServerConnect connect = new ServerConnect("server connection", player);
-        connect.start();
+        setGameID(p.getGameID());
     }
 
     public void setUpGrid(Player p) {
@@ -300,5 +305,9 @@ public class SetupController implements SceneInitialise {
         }
 
         AppManager.changeScene(getClass().getResource("/views/gamePlay.fxml"), e, player);
+    }
+
+    public void setGameID(int id) {
+        gameIDText.setText("Game ID = " + id);
     }
 }

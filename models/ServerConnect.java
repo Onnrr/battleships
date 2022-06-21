@@ -18,12 +18,14 @@ public class ServerConnect implements Runnable {
         if (player.isHost()) {
             try {
                 player.connect();
+                System.out.println("host connected");
             } catch (IOException e) {
                 System.out.println("error");
             }
         } else {
             try {
-                player.connect(6868);
+                player.connect(player.getGameID());
+                System.out.println("client connected");
             } catch (IOException e) {
                 System.out.println("error");
             }

@@ -38,6 +38,7 @@ public class StartController {
             p = new Player(nameField.getText(), true);
         } else {
             p = new Player(nameField.getText(), false);
+            p.setGameID(Integer.parseInt(codeField.getText()));
         }
         AppManager.changeScene(getClass().getResource("/views/setup.fxml"), e, p);
     }
