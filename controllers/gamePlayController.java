@@ -1,6 +1,12 @@
 package controllers;
 
+import java.io.IOException;
+
+import javax.sound.sampled.SourceDataLine;
+import javax.swing.text.TabExpander;
+
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -8,8 +14,10 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
+import models.Cell;
 import models.Player;
 import models.SceneInitialise;
+import models.WaitOpponent;
 
 public class GamePlayController implements SceneInitialise {
     final int TABLE_SIZE = 10;
@@ -34,15 +42,27 @@ public class GamePlayController implements SceneInitialise {
 
     GridPane opponentTable;
     GridPane myTable;
+    Cell[][] buttons;
+    Player player;
 
     public void initData(Player p) {
         turnText.setText("Opponent's Turn");
         remShipsText.setText("Remaining Ships : " + p.getRemaining());
         oppShipsText.setText("Opponent's remaining ships : " + p.getOppRemaining());
+        buttons = new Cell[TABLE_SIZE][TABLE_SIZE];
         setUpGrid(p);
+        if (!player.isHost()) {
+            try {
+                opponentsTurn();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setUpGrid(Player p) {
+        player = p;
         opponentTable = new GridPane();
         opponentTable.setMaxHeight(Double.MAX_VALUE);
         opponentTable.setMaxWidth(Double.MAX_VALUE);
@@ -76,14 +96,19 @@ public class GamePlayController implements SceneInitialise {
 
         for (int x = 0; x < TABLE_SIZE; x++) {
             for (int y = 0; y < TABLE_SIZE; y++) {
-                Button button = new Button();
+                Cell button = new Cell(x, y);
                 button.setMaxWidth(Double.MAX_VALUE);
                 button.setMaxHeight(Double.MAX_VALUE);
 
                 button.setOnMouseClicked(e -> {
-                    handleClick(e);
+                    try {
+                        handleClick(e);
+                    } catch (IOException e1) {
+                        System.out.println("mouseclick IO error");
+                    }
                 });
                 opponentTable.add(button, x, y);
+                buttons[x][y] = button;
 
                 Button b = new Button();
                 b.setMaxWidth(Double.MAX_VALUE);
@@ -100,6 +125,30 @@ public class GamePlayController implements SceneInitialise {
 
     }
 
-    private void handleClick(MouseEvent e) {
+    private void handleClick(MouseEvent e) throws IOException {
+        int row = ((Cell) e.getSource()).getRow();
+        int column = ((Cell) e.getSource()).getColumn();
+
+        String guess = String.valueOf(row);
+        guess += column;
+        player.sendMessage(guess);
+
+        String result = player.getMesssage();
+
+        if (result.equals("HIT")) {
+            System.out.println("yyy");
+            ((Cell) e.getSource()).setDisable(true);
+            ((Cell) e.getSource()).getStyleClass().add("hit");
+        } else if (result.equals("MISS")) {
+            System.out.println("nnn");
+            ((Cell) e.getSource()).setDisable(true);
+        }
+
+        opponentsTurn();
+    }
+
+    public void opponentsTurn() throws IOException {
+        WaitOpponent wait = new WaitOpponent(player);
+        wait.start();
     }
 }

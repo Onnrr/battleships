@@ -17,6 +17,7 @@ import models.AppManager;
 import models.Cell;
 import models.Player;
 import models.SceneInitialise;
+import models.ServerConnect;
 
 public class SetupController implements SceneInitialise {
     final int TABLE_SIZE = 10;
@@ -69,6 +70,9 @@ public class SetupController implements SceneInitialise {
             }
         }
         player = p;
+
+        ServerConnect connect = new ServerConnect("server connection", player);
+        connect.start();
     }
 
     public void setUpGrid(Player p) {
