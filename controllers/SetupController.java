@@ -49,8 +49,10 @@ public class SetupController implements SceneInitialise {
 
     @Override
     public void initData(Player p) {
-        ServerConnect connect = new ServerConnect("server connection", p);
-        connect.start();
+        if (p.isHost()) {
+            ServerConnect connect = new ServerConnect("server connection", p);
+            connect.start();
+        }
 
         shipBox.getItems().addAll("1 Block", "1 Block", "1 Block", "2 Blocks", "2 Blocks", "2 Blocks",
                 "3 Blocks", "3 Blocks", "5 Blocks");

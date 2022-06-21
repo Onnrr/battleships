@@ -9,8 +9,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import models.AppManager;
 import models.Player;
+import models.SceneInitialise;
 
-public class StartController {
+public class StartController implements SceneInitialise {
     @FXML
     CheckBox hostBox;
 
@@ -32,6 +33,13 @@ public class StartController {
         codeField.setDisable(true);
     }
 
+    @Override
+    public void initData(Player p) {
+        hostBox.setSelected(true);
+        joinBox.setSelected(false);
+        codeField.setDisable(true);
+    }
+
     public void startGame(ActionEvent e) throws IOException {
         Player p;
         if (hostBox.isSelected()) {
@@ -40,7 +48,20 @@ public class StartController {
             p = new Player(nameField.getText(), false);
             p.setGameID(Integer.parseInt(codeField.getText()));
         }
-        AppManager.changeScene(getClass().getResource("/views/setup.fxml"), e, p);
+        if (!p.isHost()) {
+            // Wait screen
+            try {
+                p.connect(p.getGameID());
+                System.out.println("client connected");
+                AppManager.changeScene(getClass().getResource("/views/setup.fxml"), e, p);
+            } catch (IOException IOE) {
+
+                System.out.println("error");
+            }
+        } else {
+            AppManager.changeScene(getClass().getResource("/views/setup.fxml"), e, p);
+        }
+
     }
 
     public void nameAction(ActionEvent e) {
@@ -78,4 +99,5 @@ public class StartController {
             codeField.setDisable(true);
         }
     }
+
 }

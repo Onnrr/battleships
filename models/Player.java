@@ -9,8 +9,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import controllers.GamePlayController;
-
 public class Player {
     final int MAX_ID = 9999;
     final int MIN_ID = 1000;

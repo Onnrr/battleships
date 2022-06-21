@@ -2,17 +2,14 @@ package controllers;
 
 import java.io.IOException;
 
-import javax.sound.sampled.SourceDataLine;
-import javax.swing.text.TabExpander;
-
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import models.Cell;

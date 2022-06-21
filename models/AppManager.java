@@ -24,4 +24,5 @@ public class AppManager {
         stage.setScene(scene);
         stage.show();
     }
+
 }
