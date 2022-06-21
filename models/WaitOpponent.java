@@ -2,6 +2,7 @@ package models;
 
 import java.io.IOException;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -11,12 +12,14 @@ public class WaitOpponent implements Runnable {
     Text turnText;
     Text remainingText;
     GridPane pane;
+    AnchorPane lose;
 
-    public WaitOpponent(Player p, Text txt, GridPane grid, Text remainingText) {
+    public WaitOpponent(Player p, Text txt, GridPane grid, Text remainingText, AnchorPane losePane) {
         player = p;
         turnText = txt;
         pane = grid;
         this.remainingText = remainingText;
+        lose = losePane;
     }
 
     @Override
@@ -34,6 +37,12 @@ public class WaitOpponent implements Runnable {
             player.sendMessage("HIT");
             player.decrRemaining();
             remainingText.setText("Remaining ships : " + player.getRemaining());
+            if (player.getRemaining() == 0) {
+                lose.setVisible(true);
+                lose.setDisable(false);
+                pane.setVisible(true);
+                pane.setDisable(false);
+            }
         } else {
             player.sendMessage("MISS");
         }

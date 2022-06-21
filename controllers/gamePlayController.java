@@ -161,10 +161,12 @@ public class GamePlayController implements SceneInitialise {
             player.incrementCorrectGuess();
             oppShipsText.setText("Opponent's remaining ships : " + player.getOppRemaining());
             if (player.getOppRemaining() == 0) {
+                System.out.println("winn");
                 winPane.setVisible(true);
                 winPane.setDisable(false);
                 darkPane.setVisible(true);
                 darkPane.setDisable(false);
+
             }
 
         } else if (result.equals("MISS")) {
@@ -178,7 +180,7 @@ public class GamePlayController implements SceneInitialise {
         turnText.setText("Opponent's Turn");
         darkPane.setVisible(true);
         darkPane.setDisable(false);
-        WaitOpponent wait = new WaitOpponent(player, turnText, darkPane, remShipsText);
+        WaitOpponent wait = new WaitOpponent(player, turnText, darkPane, remShipsText, losePane);
         wait.start();
 
     }
@@ -188,7 +190,7 @@ public class GamePlayController implements SceneInitialise {
     }
 
     public void exit(ActionEvent e) throws IOException {
-        AppManager.changeScene(getClass().getResource("/views/gamePlay.fxml"), e, player);
+        AppManager.changeScene(getClass().getResource("/views/start.fxml"), e, player);
     }
 
 }
