@@ -125,7 +125,7 @@ public class SetupController implements SceneInitialise {
                 button.setOnMouseExited((event) -> {
                     removeHoverEffect(event);
                     noAction = false;
-                            
+
                 });
 
                 button.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
@@ -157,11 +157,11 @@ public class SetupController implements SceneInitialise {
     }
 
     private void handleClick(MouseEvent e) {
-        if (noAction) { return; }
+        if (noAction) {
+            return;
+        }
         if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
-            int start =
-            ((Cell)
-        e.getSource()).getColumn();
+            int start = ((Cell) e.getSource()).getColumn();
             for (int i = start; i < start + length; i++) {
                 if (i >= TABLE_SIZE) {
                     break;
@@ -276,33 +276,9 @@ public class SetupController implements SceneInitialise {
         }
     }
 
-    // private void removeDisabledHoverEffect(MouseEvent e) {
-    // System.out.println("remove");
-    // ((Button) e.getSource()).setDisable(false);
-    // if (directionBox.getSelectionModel().getSelectedItem().equals("Vertical")) {
-    // int start = ((Cell) e.getSource()).getColumn();
-    // for (int i = start; i < start + length; i++) {
-    // if (i >= TABLE_SIZE) {
-    // break;
-    // }
-    // buttons[((Cell)
-    // e.getSource()).getRow()][i].getStyleClass().remove("outOfBounds");
-    // }
-    // } else {
-    // int start = ((Cell) e.getSource()).getRow();
-    // for (int i = start; i < start + length; i++) {
-    // if (i >= TABLE_SIZE) {
-    // break;
-    // }
-    // buttons[i][((Cell)
-    // e.getSource()).getColumn()].getStyleClass().remove("outOfBounds");
-    // }
-    // }
-    // }
-
     public void reset(ActionEvent e) {
         shipBox.getItems().clear();
-        shipBox.setDisable(false);
+
         directionBox.getItems().clear();
         initData(player);
     }

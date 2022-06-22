@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: rgb(35, 46, 33);
+    -fx-background-color: #18171b;
 }
 
 .hovered {
@@ -7,7 +7,7 @@
 }
 
 .outOfBounds {
-    -fx-background-color: red;
+    -fx-background-color: rgb(110, 24, 24);
 }
 
 .occupied {
@@ -15,5 +15,15 @@
 }
 
 .hit {
-    -fx-background-color: red;
+    -fx-background-color: rgb(170, 0, 0);
+}
+
+.startButton {
+    -fx-background-color: rgb(0, 187, 44);
+    -fx-text-fill: white;
+    -fx-font-size: 15pt;
+}
+
+.startButton:hover {
+    -fx-background-color: rgb(0, 113, 32);
 }
