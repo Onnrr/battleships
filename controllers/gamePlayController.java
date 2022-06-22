@@ -156,7 +156,6 @@ public class GamePlayController implements SceneInitialise {
     }
 
     private void handleClick(MouseEvent e) throws IOException {
-        displayMessage(messagePane, "TRYY", true);
         int row = ((Cell) e.getSource()).getRow();
         int column = ((Cell) e.getSource()).getColumn();
 
@@ -206,7 +205,6 @@ public class GamePlayController implements SceneInitialise {
         AppManager.changeScene(getClass().getResource("/views/start.fxml"), e, player);
     }
 
-    
     private void displayMessage(Pane pane, String errorMessage, boolean error) {
         System.out.println(errorMessage);
         pane.setVisible(true);
