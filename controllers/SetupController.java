@@ -167,7 +167,6 @@ public class SetupController implements SceneInitialise {
                 if (i >= TABLE_SIZE) {
                     break;
                 }
-                System.out.println("vertt");
                 buttons[((Cell) e.getSource()).getRow()][i].setDisable(true);
                 buttons[((Cell) e.getSource()).getRow()][i].setOccupied(true);
                 buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
@@ -291,6 +290,7 @@ public class SetupController implements SceneInitialise {
         }
         System.out.println("connected");
         readyButton.setDisable(true);
+        waitText.setText("Waiting for Opponent");
         player.sendMessage("READY");
         for (int x = 0; x < TABLE_SIZE; x++) {
             for (int y = 0; y < TABLE_SIZE; y++) {
