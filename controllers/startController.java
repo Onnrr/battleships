@@ -19,9 +19,6 @@ public class StartController implements SceneInitialise {
     CheckBox joinBox;
 
     @FXML
-    TextField nameField;
-
-    @FXML
     TextField codeField;
 
     @FXML
@@ -43,9 +40,9 @@ public class StartController implements SceneInitialise {
     public void startGame(ActionEvent e) throws IOException {
         Player p;
         if (hostBox.isSelected()) {
-            p = new Player(nameField.getText(), true);
+            p = new Player(true);
         } else {
-            p = new Player(nameField.getText(), false);
+            p = new Player(false);
             p.setGameID(Integer.parseInt(codeField.getText()));
         }
         if (!p.isHost()) {
@@ -61,18 +58,6 @@ public class StartController implements SceneInitialise {
             AppManager.changeScene(getClass().getResource("/views/setup.fxml"), e, p);
         }
 
-    }
-
-    public void nameAction(ActionEvent e) {
-        if (nameField.getText().equals("")) {
-            startButton.setDisable(true);
-        } else {
-            if (joinBox.isSelected() && !codeField.getText().equals("")) {
-                startButton.setDisable(false);
-            } else if (hostBox.isSelected()) {
-                startButton.setDisable(false);
-            }
-        }
     }
 
     public void hostSelect(ActionEvent e) {

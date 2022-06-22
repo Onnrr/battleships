@@ -20,17 +20,21 @@
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="background" stylesheets="@../stylesheets/style.css">
          <children>
-            <TextField fx:id="nameField" layoutX="436.0" layoutY="272.0" onAction="#nameAction" prefHeight="43.0" prefWidth="219.0" promptText="User Name" styleClass="txtField" />
             <Text fill="#dcdcdc" layoutX="360.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="BATTLESHIPS" wrappingWidth="411.4290466308594">
                <font>
                   <Font size="69.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="440.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name:" />
-            <Button fx:id="startButton" layoutX="450.0" layoutY="542.0" mnemonicParsing="false" onAction="#startGame" prefHeight="69.0" prefWidth="164.0" styleClass="startButton" text="Start Game" />
-            <CheckBox fx:id="hostBox" layoutX="495.0" layoutY="368.0" mnemonicParsing="false" onAction="#hostSelect" text="Host Game" textFill="WHITE" />
-            <CheckBox fx:id="joinBox" layoutX="495.0" layoutY="427.0" mnemonicParsing="false" onAction="#joinSelect" text="Join Game" textFill="WHITE" />
-            <TextField fx:id="codeField" layoutX="434.0" layoutY="464.0" prefHeight="43.0" prefWidth="204.0" promptText="Game Code" />
+            <Button fx:id="startButton" layoutX="442.0" layoutY="528.0" mnemonicParsing="false" onAction="#startGame" prefHeight="69.0" prefWidth="164.0" styleClass="startButton" text="Start Game" />
+            <CheckBox fx:id="hostBox" layoutX="463.0" layoutY="265.0" mnemonicParsing="false" onAction="#hostSelect" prefHeight="34.0" prefWidth="139.0" text="Host Game" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font></CheckBox>
+            <CheckBox fx:id="joinBox" layoutX="463.0" layoutY="336.0" mnemonicParsing="false" onAction="#joinSelect" text="Join Game" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font></CheckBox>
+            <TextField fx:id="codeField" layoutX="422.0" layoutY="395.0" prefHeight="43.0" prefWidth="204.0" promptText="Game Code" />
          </children>
       </Pane>
    </children>
