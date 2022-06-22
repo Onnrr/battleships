@@ -17,6 +17,8 @@ import javafx.scene.text.Text;
 import models.AppManager;
 import models.Cell;
 import models.Player;
+import models.ReadyWait;
+import models.ReadyWait;
 import models.SceneInitialise;
 import models.ServerConnect;
 
@@ -125,7 +127,6 @@ public class SetupController implements SceneInitialise {
                 button.setOnMouseExited((event) -> {
                     removeHoverEffect(event);
                     noAction = false;
-
                 });
 
                 button.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
@@ -284,6 +285,13 @@ public class SetupController implements SceneInitialise {
     }
 
     public void ready(ActionEvent e) throws IOException {
+        if (!player.isOpponentConnected()) {
+            System.out.println("not connected");
+            return;
+        }
+        System.out.println("connected");
+        readyButton.setDisable(true);
+        player.sendMessage("READY");
         for (int x = 0; x < TABLE_SIZE; x++) {
             for (int y = 0; y < TABLE_SIZE; y++) {
                 if (buttons[y][x].isOccupied()) {
@@ -293,8 +301,8 @@ public class SetupController implements SceneInitialise {
                 }
             }
         }
-
-        AppManager.changeScene(getClass().getResource("/views/gamePlay.fxml"), e, player);
+        ReadyWait wait = new ReadyWait(player, waitText, e);
+        wait.start();
     }
 
     public void setGameID(int id) {

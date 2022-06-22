@@ -21,6 +21,8 @@ public class Player {
     boolean isHost;
     int gameID;
 
+    boolean isOpponentConnected;
+
     InputStream input;
     BufferedReader reader;
 
@@ -37,6 +39,19 @@ public class Player {
         numberOfCorrectGuesses = 0;
         remaining = SHIPS;
         this.isHost = isHost;
+        if (!isHost) {
+            isOpponentConnected = true;
+        } else {
+            isOpponentConnected = false;
+        }
+    }
+
+    public boolean isOpponentConnected() {
+        return isOpponentConnected;
+    }
+
+    public void setOpponentConnected(boolean connected) {
+        isOpponentConnected = connected;
     }
 
     public int getNumberOfCorrectGuesses() {

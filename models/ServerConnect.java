@@ -23,6 +23,7 @@ public class ServerConnect implements Runnable {
             try {
                 player.connect(text);
                 System.out.println("host connected");
+                player.setOpponentConnected(true);
             } catch (IOException e) {
                 System.out.println("error");
             }
