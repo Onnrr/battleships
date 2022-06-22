@@ -3,6 +3,10 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 
+import com.jfoenix.controls.JFXSnackbarLayout;
+
+import com.jfoenix.controls.JFXSnackbar;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import models.Cell;
@@ -47,6 +52,9 @@ public class SetupController implements SceneInitialise {
 
     @FXML
     Text waitText;
+
+    @FXML
+    Pane messagePane;
 
     GridPane table;
 
@@ -88,6 +96,9 @@ public class SetupController implements SceneInitialise {
 
         setGameID(p.getGameID());
         noAction = false;
+
+        messagePane.setVisible(false);
+        messagePane.setDisable(true);
     }
 
     public void setUpGrid(Player p) {
@@ -284,6 +295,7 @@ public class SetupController implements SceneInitialise {
     public void ready(ActionEvent e) throws IOException {
         if (!player.isOpponentConnected()) {
             System.out.println("not connected");
+            displayMessage(messagePane, "Other player has not joined yet", true);
             return;
         }
         System.out.println("connected");
@@ -306,5 +318,20 @@ public class SetupController implements SceneInitialise {
 
     public void setGameID(int id) {
         gameIDText.setText("Game ID = " + id);
+    }
+
+    private void displayMessage(Pane pane, String errorMessage, boolean error) {
+        System.out.println(errorMessage);
+        pane.setVisible(true);
+        pane.setDisable(false);
+        JFXSnackbar snackbar = new JFXSnackbar(pane);
+        if (error) {
+            snackbar.getStylesheets().add("/stylesheets/errorMessage.css");
+        } else {
+            snackbar.getStylesheets().add("/stylesheets/message.css");
+        }
+
+        snackbar.fireEvent(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout(errorMessage)));
+        pane.setDisable(true);
     }
 }

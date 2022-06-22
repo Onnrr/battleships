@@ -56,7 +56,6 @@ public class StartController implements SceneInitialise {
             p = new Player(false);
         }
         if (!p.isHost()) {
-            // Wait screen
             if (codeField.getText().equals("")) {
                 displayMessage(messagePane, "Invalid ID", true);
                 return;
@@ -73,7 +72,6 @@ public class StartController implements SceneInitialise {
         } else {
             AppManager.changeScene(getClass().getResource("/views/setup.fxml"), e, p);
         }
-
     }
 
     public void hostSelect(ActionEvent e) {

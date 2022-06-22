@@ -12,64 +12,80 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="background" stylesheets="@../stylesheets/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SetupController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.60003662109375" minWidth="10.0" prefWidth="25.600006103515625" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="783.9999145507812" minWidth="10.0" prefWidth="538.6666625976562" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="524.6000366210938" minWidth="10.0" prefWidth="366.73333740234375" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="219.53330078125" minHeight="0.0" prefHeight="84.13331451416016" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="568.2" minHeight="10.0" prefHeight="505.13331298828115" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="100.06668701171873" minHeight="10.0" prefHeight="100.06668701171873" vgrow="SOMETIMES" />
-  </rowConstraints>
+
+<GridPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SetupController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <GridPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="background" stylesheets="@../stylesheets/style.css">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.60003662109375" minWidth="10.0" prefWidth="25.600006103515625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="783.9999145507812" minWidth="10.0" prefWidth="538.6666625976562" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="524.6000366210938" minWidth="10.0" prefWidth="366.73333740234375" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="219.53330078125" minHeight="0.0" prefHeight="84.13331451416016" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="568.2" minHeight="10.0" prefHeight="505.13331298828115" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="100.06668701171873" minHeight="10.0" prefHeight="100.06668701171873" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Button fx:id="readyButton" layoutX="142.0" layoutY="-3.0" mnemonicParsing="false" onAction="#ready" text="READY">
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="readyButton" layoutX="142.0" layoutY="-3.0" mnemonicParsing="false" onAction="#ready" text="READY">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <Text layoutX="46.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Direction :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="55.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Ship :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="shipBox" layoutX="43.0" layoutY="90.0" onAction="#shipSelect" prefHeight="45.0" prefWidth="220.0" />
+                  <ComboBox fx:id="directionBox" layoutX="40.0" layoutY="193.0" prefHeight="45.0" prefWidth="220.0" />
+                  <ImageView fx:id="image" fitHeight="193.0" fitWidth="248.0" layoutX="94.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+            <Button mnemonicParsing="false" onAction="#reset" text="Reset" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin>
                <font>
-                  <Font size="33.0" />
+                  <Font size="16.0" />
                </font>
             </Button>
+            <Text fx:id="gameIDText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Game ID = 123123" GridPane.columnIndex="1">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Text>
+            <Text fx:id="waitText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for Opponent..." GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="40.0" />
+               </GridPane.margin>
+            </Text>
          </children>
+      </GridPane>
+      <Pane fx:id="messagePane" disable="true" maxHeight="200.0" maxWidth="300.0" prefHeight="200.0" prefWidth="200.0" styleClass="message" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="100.0" />
+         </GridPane.margin>
       </Pane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-         <children>
-            <Text layoutX="46.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Direction :">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Text layoutX="55.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Ship :">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <ComboBox fx:id="shipBox" layoutX="43.0" layoutY="90.0" onAction="#shipSelect" prefHeight="45.0" prefWidth="220.0" />
-            <ComboBox fx:id="directionBox" layoutX="40.0" layoutY="193.0" prefHeight="45.0" prefWidth="220.0" />
-            <ImageView fx:id="image" fitHeight="193.0" fitWidth="248.0" layoutX="94.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </AnchorPane>
-      <Button mnemonicParsing="false" onAction="#reset" text="Reset" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-         <GridPane.margin>
-            <Insets bottom="10.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Text fx:id="gameIDText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Game ID = 123123" GridPane.columnIndex="1">
-         <font>
-            <Font size="32.0" />
-         </font>
-      </Text>
-      <Text fx:id="waitText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for Opponent..." GridPane.columnIndex="2" GridPane.halignment="CENTER">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets top="40.0" />
-         </GridPane.margin>
-      </Text>
    </children>
 </GridPane>
