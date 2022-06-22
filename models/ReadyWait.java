@@ -1,13 +1,8 @@
 package models;
 
 import java.io.IOException;
-
-import javax.swing.Action;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 public class ReadyWait implements Runnable {

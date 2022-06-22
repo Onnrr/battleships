@@ -2,8 +2,13 @@ package models;
 
 import java.io.IOException;
 
+import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXSnackbarLayout;
+
+import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 public class WaitOpponent implements Runnable {
@@ -13,13 +18,15 @@ public class WaitOpponent implements Runnable {
     Text remainingText;
     GridPane pane;
     AnchorPane lose;
+    Pane messagePane;
 
-    public WaitOpponent(Player p, Text txt, GridPane grid, Text remainingText, AnchorPane losePane) {
+    public WaitOpponent(Player p, Text txt, GridPane grid, Text remainingText, AnchorPane losePane, Pane message) {
         player = p;
         turnText = txt;
         pane = grid;
         this.remainingText = remainingText;
         lose = losePane;
+        messagePane = message;
     }
 
     @Override
@@ -35,6 +42,12 @@ public class WaitOpponent implements Runnable {
 
         if (player.hit(column, row)) {
             player.sendMessage("HIT");
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    displayMessage(messagePane, "Your ship has sunk", true);
+                }
+            });
             player.decrRemaining();
             remainingText.setText("Remaining ships : " + player.getRemaining());
             if (player.getRemaining() == 0) {
@@ -45,6 +58,13 @@ public class WaitOpponent implements Runnable {
             }
         } else {
             player.sendMessage("MISS");
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    displayMessage(messagePane, "Your Opponent Missed", false);
+                }
+            });
+
         }
         turnText.setText("Your Turn");
         pane.setVisible(false);
@@ -57,6 +77,21 @@ public class WaitOpponent implements Runnable {
             t = new Thread(this, "waitOpponent");
             t.start();
         }
+    }
+
+    private void displayMessage(Pane pane, String errorMessage, boolean error) {
+        System.out.println(errorMessage);
+        pane.setVisible(true);
+        pane.setDisable(false);
+        JFXSnackbar snackbar = new JFXSnackbar(pane);
+        if (error) {
+            snackbar.getStylesheets().add("/stylesheets/errorMessage.css");
+        } else {
+            snackbar.getStylesheets().add("/stylesheets/message.css");
+        }
+
+        snackbar.fireEvent(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout(errorMessage)));
+        pane.setDisable(true);
     }
 
 }

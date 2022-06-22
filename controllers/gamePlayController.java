@@ -193,7 +193,7 @@ public class GamePlayController implements SceneInitialise {
         turnText.setText("Opponent's Turn");
         darkPane.setVisible(true);
         darkPane.setDisable(false);
-        WaitOpponent wait = new WaitOpponent(player, turnText, darkPane, remShipsText, losePane);
+        WaitOpponent wait = new WaitOpponent(player, turnText, darkPane, remShipsText, losePane, messagePane);
         wait.start();
 
     }
