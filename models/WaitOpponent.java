@@ -58,4 +58,5 @@ public class WaitOpponent implements Runnable {
             t.start();
         }
     }
+
 }

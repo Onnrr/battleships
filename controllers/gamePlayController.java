@@ -2,6 +2,10 @@ package controllers;
 
 import java.io.IOException;
 
+import com.jfoenix.controls.JFXSnackbarLayout;
+
+import com.jfoenix.controls.JFXSnackbar;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -10,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import models.AppManager;
@@ -49,6 +53,9 @@ public class GamePlayController implements SceneInitialise {
     @FXML
     GridPane darkPane;
 
+    @FXML
+    Pane messagePane;
+
     GridPane opponentTable;
     GridPane myTable;
     Cell[][] buttons;
@@ -57,6 +64,9 @@ public class GamePlayController implements SceneInitialise {
     public void initData(Player p) {
         winPane.setVisible(false);
         winPane.setDisable(true);
+
+        messagePane.setVisible(false);
+        messagePane.setDisable(true);
 
         losePane.setVisible(false);
         losePane.setDisable(true);
@@ -146,6 +156,7 @@ public class GamePlayController implements SceneInitialise {
     }
 
     private void handleClick(MouseEvent e) throws IOException {
+        displayMessage(messagePane, "TRYY", true);
         int row = ((Cell) e.getSource()).getRow();
         int column = ((Cell) e.getSource()).getColumn();
 
@@ -158,6 +169,7 @@ public class GamePlayController implements SceneInitialise {
         if (result.equals("HIT")) {
             ((Cell) e.getSource()).setDisable(true);
             ((Cell) e.getSource()).getStyleClass().add("hit");
+            displayMessage(messagePane, "You hit one of your opponent's ships!", false);
             player.incrementCorrectGuess();
             oppShipsText.setText("Opponent's remaining ships : " + player.getOppRemaining());
             if (player.getOppRemaining() == 0) {
@@ -170,6 +182,7 @@ public class GamePlayController implements SceneInitialise {
             }
 
         } else if (result.equals("MISS")) {
+            displayMessage(messagePane, "You Missed", true);
             ((Cell) e.getSource()).setDisable(true);
         }
 
@@ -191,6 +204,26 @@ public class GamePlayController implements SceneInitialise {
 
     public void exit(ActionEvent e) throws IOException {
         AppManager.changeScene(getClass().getResource("/views/start.fxml"), e, player);
+    }
+
+    /**
+     * Shows the error message
+     * 
+     * @param errorMessage message to show
+     */
+    private void displayMessage(Pane pane, String errorMessage, boolean error) {
+        System.out.println(errorMessage);
+        pane.setVisible(true);
+        pane.setDisable(false);
+        JFXSnackbar snackbar = new JFXSnackbar(pane);
+        if (error) {
+            snackbar.getStylesheets().add("/stylesheets/errorMessage.css");
+        } else {
+            snackbar.getStylesheets().add("/stylesheets/message.css");
+        }
+
+        snackbar.fireEvent(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout(errorMessage)));
+        pane.setDisable(true);
     }
 
 }

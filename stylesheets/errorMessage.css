@@ -1,0 +1,22 @@
+.jfx-snackbar-content {
+    -fx-background-radius: 5px;
+    -fx-background-color: #db4244;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-text-fill: #faf9f7;
+}
+
+.jfx-snackbar-toast {
+    -fx-text-fill: #faf9f7;
+    -fx-font-size: 20px;
+}
+
+.jfx-snackbar-toast:disabled {
+    -fx-text-fill: #faf9f7;
+    -fx-opacity: 1;
+}
+
+.jfx-snackbar-content:disabled {
+    -fx-text-fill: #faf9f7;
+    -fx-opacity: 1;
+}

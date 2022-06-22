@@ -105,5 +105,10 @@
             <Button layoutX="156.0" layoutY="152.0" mnemonicParsing="false" onAction="#exit" prefHeight="47.0" prefWidth="94.0" text="Exit" />
          </children>
       </AnchorPane>
+      <Pane fx:id="messagePane" disable="true" maxHeight="200.0" maxWidth="300.0" prefHeight="200.0" prefWidth="200.0" styleClass="message" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="100.0" />
+         </GridPane.margin>
+      </Pane>
    </children>
 </GridPane>

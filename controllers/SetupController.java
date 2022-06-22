@@ -14,10 +14,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
-import models.AppManager;
 import models.Cell;
 import models.Player;
-import models.ReadyWait;
 import models.ReadyWait;
 import models.SceneInitialise;
 import models.ServerConnect;
@@ -290,6 +288,7 @@ public class SetupController implements SceneInitialise {
         }
         System.out.println("connected");
         readyButton.setDisable(true);
+        waitText.setVisible(true);
         waitText.setText("Waiting for Opponent");
         player.sendMessage("READY");
         for (int x = 0; x < TABLE_SIZE; x++) {
