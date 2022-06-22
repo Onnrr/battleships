@@ -206,11 +206,7 @@ public class GamePlayController implements SceneInitialise {
         AppManager.changeScene(getClass().getResource("/views/start.fxml"), e, player);
     }
 
-    /**
-     * Shows the error message
-     * 
-     * @param errorMessage message to show
-     */
+    
     private void displayMessage(Pane pane, String errorMessage, boolean error) {
         System.out.println(errorMessage);
         pane.setVisible(true);

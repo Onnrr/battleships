@@ -2,11 +2,15 @@ package controllers;
 
 import java.io.IOException;
 
+import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXSnackbarLayout;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import models.AppManager;
 import models.Player;
 import models.SceneInitialise;
@@ -24,10 +28,15 @@ public class StartController implements SceneInitialise {
     @FXML
     Button startButton;
 
+    @FXML
+    Pane messagePane;
+
     public void initData() {
         hostBox.setSelected(true);
         joinBox.setSelected(false);
         codeField.setDisable(true);
+        messagePane.setVisible(false);
+        messagePane.setDisable(true);
     }
 
     @Override
@@ -35,6 +44,8 @@ public class StartController implements SceneInitialise {
         hostBox.setSelected(true);
         joinBox.setSelected(false);
         codeField.setDisable(true);
+        messagePane.setVisible(false);
+        messagePane.setDisable(true);
     }
 
     public void startGame(ActionEvent e) throws IOException {
@@ -43,15 +54,20 @@ public class StartController implements SceneInitialise {
             p = new Player(true);
         } else {
             p = new Player(false);
-            p.setGameID(Integer.parseInt(codeField.getText()));
         }
         if (!p.isHost()) {
             // Wait screen
+            if (codeField.getText().equals("")) {
+                displayMessage(messagePane, "Invalid ID", true);
+                return;
+            }
+            p.setGameID(Integer.parseInt(codeField.getText()));
             try {
                 p.connect(p.getGameID());
                 System.out.println("client connected");
                 AppManager.changeScene(getClass().getResource("/views/setup.fxml"), e, p);
-            } catch (IOException IOE) {
+            } catch (Exception IOE) {
+                displayMessage(messagePane, "Invalid ID", true);
                 System.out.println("error");
             }
         } else {
@@ -85,4 +101,18 @@ public class StartController implements SceneInitialise {
         }
     }
 
+    private void displayMessage(Pane pane, String errorMessage, boolean error) {
+        System.out.println(errorMessage);
+        pane.setVisible(true);
+        pane.setDisable(false);
+        JFXSnackbar snackbar = new JFXSnackbar(pane);
+        if (error) {
+            snackbar.getStylesheets().add("/stylesheets/errorMessage.css");
+        } else {
+            snackbar.getStylesheets().add("/stylesheets/message.css");
+        }
+
+        snackbar.fireEvent(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout(errorMessage)));
+        pane.setDisable(true);
+    }
 }

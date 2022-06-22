@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TextField?>
@@ -36,6 +37,11 @@
                </font></CheckBox>
             <TextField fx:id="codeField" layoutX="422.0" layoutY="395.0" prefHeight="43.0" prefWidth="204.0" promptText="Game Code" />
          </children>
+      </Pane>
+      <Pane fx:id="messagePane" disable="true" maxHeight="200.0" maxWidth="300.0" prefHeight="200.0" prefWidth="200.0" styleClass="message" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="100.0" />
+         </GridPane.margin>
       </Pane>
    </children>
 </GridPane>
