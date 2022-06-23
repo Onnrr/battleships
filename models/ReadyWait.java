@@ -1,8 +1,6 @@
 package models;
 
 import java.io.IOException;
-import java.net.SocketException;
-import java.net.SocketPermission;
 
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSnackbarLayout;

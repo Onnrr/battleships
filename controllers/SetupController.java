@@ -180,7 +180,9 @@ public class SetupController implements SceneInitialise {
                 buttons[((Cell) e.getSource()).getRow()][i].setOccupied(true);
                 buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
                 buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("outOfBounds");
+                System.out.println("Adding style class " + ((Cell) e.getSource()).getRow() + i);
                 buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().add("occupied");
+
             }
         } else {
             int start = ((Cell) e.getSource()).getRow();
@@ -192,7 +194,9 @@ public class SetupController implements SceneInitialise {
                 buttons[i][((Cell) e.getSource()).getColumn()].setOccupied(true);
                 buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("hovered");
                 buttons[((Cell) e.getSource()).getRow()][i].getStyleClass().remove("outOfBounds");
+                System.out.println("Adding style class " + i + ((Cell) e.getSource()).getRow());
                 buttons[i][((Cell) e.getSource()).getColumn()].getStyleClass().add("occupied");
+
             }
         }
 
@@ -286,10 +290,36 @@ public class SetupController implements SceneInitialise {
     }
 
     public void reset(ActionEvent e) {
+        background.getChildren().remove(1, 1);
+        table.getChildren().clear();
         shipBox.getItems().clear();
-
         directionBox.getItems().clear();
-        initData(player);
+
+        player.resetTable();
+
+        shipBox.getItems().addAll("1 Block", "1 Block", "1 Block", "2 Blocks", "2 Blocks", "2 Blocks",
+                "3 Blocks", "3 Blocks", "5 Blocks");
+        directionBox.getItems().addAll("Vertical", "Horizontal");
+
+        shipBox.getSelectionModel().selectFirst();
+        directionBox.getSelectionModel().selectFirst();
+
+        isVertical = true;
+        length = 1;
+
+        File file = new File("images/1Block.jpg");
+        Image img = new Image(file.toURI().toString());
+        image.setImage(img);
+
+        buttons = new Cell[TABLE_SIZE][TABLE_SIZE];
+        readyButton.setDisable(true);
+        setUpGrid(player);
+        for (int i = 0; i < TABLE_SIZE; i++) {
+            for (int j = 0; j < TABLE_SIZE; j++) {
+                buttons[i][j].setOccupied(false);
+                buttons[i][j].getStyleClass().remove("occupied");
+            }
+        }
     }
 
     public void ready(ActionEvent e) throws IOException {

@@ -147,4 +147,8 @@ public class Player {
         gameID = id;
     }
 
+    public void resetTable() {
+        myTable = new int[TABLE_SIZE][TABLE_SIZE];
+    }
+
 }
