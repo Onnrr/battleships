@@ -1,3 +1,7 @@
+/*
+ * Before room stuff
+ */
+
 import controllers.StartController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
