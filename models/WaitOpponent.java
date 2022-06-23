@@ -19,14 +19,17 @@ public class WaitOpponent implements Runnable {
     GridPane pane;
     AnchorPane lose;
     Pane messagePane;
+    Cell[][] buttons;
 
-    public WaitOpponent(Player p, Text txt, GridPane grid, Text remainingText, AnchorPane losePane, Pane message) {
+    public WaitOpponent(Player p, Text txt, GridPane grid, Text remainingText, AnchorPane losePane, Pane message,
+            Cell[][] btns) {
         player = p;
         turnText = txt;
         pane = grid;
         this.remainingText = remainingText;
         lose = losePane;
         messagePane = message;
+        buttons = btns;
     }
 
     @Override
@@ -42,6 +45,7 @@ public class WaitOpponent implements Runnable {
 
         if (player.hit(column, row)) {
             player.sendMessage("HIT");
+            buttons[row][column].getStyleClass().add("hit");
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -58,6 +62,7 @@ public class WaitOpponent implements Runnable {
             }
         } else {
             player.sendMessage("MISS");
+            buttons[row][column].getStyleClass().add("miss");
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {

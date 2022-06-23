@@ -312,7 +312,7 @@ public class SetupController implements SceneInitialise {
                 }
             }
         }
-        ReadyWait wait = new ReadyWait(player, waitText, e);
+        ReadyWait wait = new ReadyWait(player, waitText, e, messagePane);
         wait.start();
     }
 

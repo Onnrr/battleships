@@ -59,6 +59,7 @@ public class GamePlayController implements SceneInitialise {
     GridPane opponentTable;
     GridPane myTable;
     Cell[][] buttons;
+    Cell[][] myButtons;
     Player player;
 
     public void initData(Player p) {
@@ -74,6 +75,7 @@ public class GamePlayController implements SceneInitialise {
         remShipsText.setText("Remaining Ships : " + p.getRemaining());
         oppShipsText.setText("Opponent's remaining ships : " + p.getOppRemaining());
         buttons = new Cell[TABLE_SIZE][TABLE_SIZE];
+        myButtons = new Cell[TABLE_SIZE][TABLE_SIZE];
         setUpGrid(p);
         if (!p.isHost()) {
             darkPane.setVisible(true);
@@ -140,16 +142,16 @@ public class GamePlayController implements SceneInitialise {
                 opponentTable.add(button, x, y);
                 buttons[x][y] = button;
 
-                Button b = new Button();
+                Cell b = new Cell(x, y);
                 b.setMaxWidth(Double.MAX_VALUE);
                 b.setMaxHeight(Double.MAX_VALUE);
                 b.setDisable(true);
 
-                if (p.getMyTable()[y][x] == 1) {
+                if (p.getMyTable()[x][y] == 1) {
                     b.getStyleClass().add("occupied");
                 }
-                myTable.add(b, y, x);
-
+                myTable.add(b, x, y);
+                myButtons[x][y] = b;
             }
         }
 
@@ -192,9 +194,9 @@ public class GamePlayController implements SceneInitialise {
         turnText.setText("Opponent's Turn");
         darkPane.setVisible(true);
         darkPane.setDisable(false);
-        WaitOpponent wait = new WaitOpponent(player, turnText, darkPane, remShipsText, losePane, messagePane);
+        WaitOpponent wait = new WaitOpponent(player, turnText, darkPane, remShipsText, losePane, messagePane,
+                myButtons);
         wait.start();
-
     }
 
     public void setTurnText(String string) {

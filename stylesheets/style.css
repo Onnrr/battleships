@@ -28,6 +28,11 @@
     -fx-background-color: rgb(0, 113, 32);
 }
 
+.miss {
+    -fx-background-color: rgb(69, 179, 212);
+}
+
+
 .jfx-snackbar-content {
     -fx-background-radius: 5px;
     -fx-background-color: #db4244;
